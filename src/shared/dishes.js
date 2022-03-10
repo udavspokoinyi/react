@@ -130,7 +130,7 @@ export const DISHES = [
       {
         id: 3,
         rating: 4,
-        comment: "Ultimate, Reaching for the stars!",
+        comment: "Hello i am a goma!",
         author: "Ringo Starry",
         date: "2013-12-02T17:57:28.556094Z",
       },

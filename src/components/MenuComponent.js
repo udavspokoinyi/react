@@ -1,3 +1,4 @@
+import DishDetail from "../shared/DishdetailComponent";
 import React, { Component } from "react";
 import {
   Card,
@@ -11,35 +12,21 @@ import {
 class Menu extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      SelectedDish: null,
-    };
-  }
-  onDishSelect(dish) {
-    this.setState({ selectedDish: dish });
-  }
-
-  renderDish(dish) {
-    if (dish != null)
-      return (
-        <Card>
-          <CardImg top src={dish.image} alt={dish.name} />
-          <CardBody>
-            <CardTitle>{dish.name}</CardTitle>
-            <CardText>{dish.description}</CardText>
-          </CardBody>
-        </Card>
-      );
-    else return <div></div>;
+    this.state = {};
   }
 
   render() {
-    const menu = this.props.dishes.map((dish) => {
+    const menu = this.props.dishes.map((dish, pos) => {
       return (
-        <div key={dish.id} className="col-12 col-md-5 mt-1">
-          <Card onClick={() => this.onDishSelect(dish)}>
-            <CardImg width="100%" object src={dish.image} alt={dish.name} />
-            <CardImgOverlay body className="ml-5">
+        <div className="col-12 col-md-5 m-1" key={pos}>
+          <Card key={dish.id} onClick={() => this.props.onClick(dish.id)}>
+            <CardImg
+              key={dish.id}
+              width="100%"
+              src={dish.image}
+              alt={dish.name}
+            />
+            <CardImgOverlay>
               <CardTitle>{dish.name}</CardTitle>
             </CardImgOverlay>
           </Card>
@@ -50,11 +37,7 @@ class Menu extends Component {
     return (
       <div className="container">
         <div className="row">{menu}</div>
-        <div className="row">
-          <div className="col-12 col-md-5 m-1">
-            {this.renderDish(this.state.selectedDish)}
-          </div>
-        </div>
+        <DishDetail dish={this.state.selectedDish} />
       </div>
     );
   }
