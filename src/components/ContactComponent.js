@@ -43,7 +43,7 @@ class Contact extends Component {
       [name]: value,
     });
   }
-  handleBlur = (field) => (evt) => {
+  handleBlur = (field) => () => {
     this.setState({
       touched: { ...this.state.touched, [field]: true },
     });
@@ -154,7 +154,7 @@ class Contact extends Component {
           <div className="col-12 col-md-9">
             <Form onSubmit={this.handleSubmit}>
               <FormGroup row>
-                <Label htmlfor="firstname" md={2}>
+                <Label htmlFor="firstname" md={2}>
                   First Name
                 </Label>
                 <Col md={10}>
@@ -173,7 +173,7 @@ class Contact extends Component {
                 </Col>
               </FormGroup>
               <FormGroup row>
-                <Label htmlfor="lastname" md={2}>
+                <Label htmlFor="lastname" md={2}>
                   Last Name
                 </Label>
                 <Col md={10}>
@@ -192,7 +192,7 @@ class Contact extends Component {
                 </Col>
               </FormGroup>
               <FormGroup row>
-                <Label htmlfor="telnum" md={2}>
+                <Label htmlFor="telnum" md={2}>
                   Contact Tel.
                 </Label>
                 <Col md={10}>
@@ -211,7 +211,7 @@ class Contact extends Component {
                 </Col>
               </FormGroup>
               <FormGroup row>
-                <Label htmlfor="email" md={2}>
+                <Label htmlFor="email" md={2}>
                   Email
                 </Label>
                 <Col md={10}>
@@ -256,7 +256,7 @@ class Contact extends Component {
                 </Col>
               </FormGroup>
               <FormGroup row>
-                <Label htmlfor="message" md={2}>
+                <Label htmlFor="message" md={2}>
                   Your Feedback
                 </Label>
                 <Col md={10}>
