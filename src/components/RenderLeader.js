@@ -1,10 +1,12 @@
 import React from "react";
 import { Media } from "reactstrap";
-function RenderLeaders(props) {
-  return props.leaders.map((leader, pos) => {
+import { baseUrl } from "../shared/baseUrl";
+import { Loading } from "./LoadingComponent";
+function RenderLeaders(props, isLoading, errMess) {
+  return props.leaders.leaders.map((leader, pos) => {
     return (
       <Media className="m-5" key={pos}>
-        <img src={leader.image} className="" />
+        <img src={baseUrl + leader.image} className="" />
         <Media body className="ml-5 ">
           <h3>{leader.name}</h3>
 
