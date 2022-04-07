@@ -2,14 +2,9 @@ import * as ActionTypes from "./ActionTypes";
 
 import { baseUrl } from "../shared/baseUrl";
 
-export const addComment = (dishId, rating, author, comment) => ({
+export const addComment = (comment) => ({
   type: ActionTypes.ADD_COMMENT,
-  payload: {
-    dishId: dishId,
-    rating: rating,
-    author: author,
-    comment: comment,
-  },
+  payload: comment,
 });
 
 export const fetchDishes = () => (dispatch) => {
@@ -158,4 +153,106 @@ export const leadersFailed = (errmess) => ({
 export const addLeaders = (leaders) => ({
   type: ActionTypes.ADD_LEADERS,
   payload: leaders,
+});
+
+export const postComment = (dishId, rating, author, comment) => (dispatch) => {
+  const newComment = {
+    dishId: dishId,
+    rating: rating,
+    author: author,
+    comment: comment,
+  };
+  newComment.date = new Date().toISOString();
+  return fetch(baseUrl + "comments", {
+    method: "POST",
+    body: JSON.stringify(newComment),
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "same-origin",
+  })
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error(
+            "Error" + response.status + ": " + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      (error) => {
+        var errmess = new Error(error.message);
+        throw errmess;
+      }
+    )
+    .then((response) => response.json())
+    .then((response) => dispatch(addComment(response)))
+    .catch((error) => {
+      console.log("Post comments", error.message);
+      alert(
+        "Sorry, your comment cant post right now by reason\nError : " +
+          error.message
+      );
+    });
+};
+export const postFeedback =
+  (firstname, lastname, telnum, email, agree, contactType, message) =>
+  (dispatch) => {
+    const newFeedback = {
+      firstname: firstname,
+      lastname: lastname,
+      telnum: telnum,
+      email: email,
+      agree: agree,
+      contactType: contactType,
+      message: message,
+    };
+    newFeedback.date = new Date().toISOString();
+    return fetch(baseUrl + "feedback", {
+      method: "POST",
+      body: JSON.stringify(newFeedback),
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      credentials: "same-origin",
+    })
+      .then(
+        (response) => {
+          if (response.ok) {
+            return response;
+          } else {
+            var error = new Error(
+              "Error" + response.status + ": " + response.statusText
+            );
+            error.response = response;
+            throw error;
+          }
+        },
+        (error) => {
+          var errmess = new Error(error.message);
+          throw errmess;
+        }
+      )
+      .then((response) => response.json())
+      .then((response) => dispatch(addFeedback(response)))
+      .catch((error) => {
+        console.log("Post feedback", error.message);
+        alert(
+          "Sorry, your comment cant feedback right now by reason\nError : " +
+            error.message
+        );
+      });
+  };
+export const feedbackFailed = (errmess) => ({
+  type: ActionTypes.FEEDBACK_FAILED,
+  payload: errmess,
+});
+
+export const addFeedback = (feadback) => ({
+  type: ActionTypes.ADD_FEEDBACKS,
+  payload: feadback,
 });

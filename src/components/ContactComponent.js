@@ -8,7 +8,7 @@ import {
   Row,
 } from "reactstrap";
 import { Link } from "react-router-dom";
-import { Control, Form, Errors, actions } from "react-redux-form";
+import { Control, Form, Errors } from "react-redux-form";
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !val || val.length <= len;
@@ -28,6 +28,15 @@ class Contact extends Component {
     console.log("Current State is: " + JSON.stringify(values));
     alert("Current State is: " + JSON.stringify(values));
     this.props.resetFeedbackForm();
+    this.props.postFeedback(
+      values.firstname,
+      values.lastname,
+      values.telnum,
+      values.email,
+      values.contactType,
+      values.agree,
+      values.message
+    );
   }
   render() {
     return (
@@ -104,7 +113,7 @@ class Contact extends Component {
                   First Name
                 </Label>
                 <Col md={10}>
-                  <Control.text
+                  <Control.Text
                     model=".firstname"
                     id="firstname"
                     className="form-control"
@@ -133,7 +142,7 @@ class Contact extends Component {
                   Last Name
                 </Label>
                 <Col md={10}>
-                  <Control.text
+                  <Control.Text
                     model=".lastname"
                     id="lastname"
                     className="form-control"
@@ -162,7 +171,7 @@ class Contact extends Component {
                   Contact Tel.
                 </Label>
                 <Col md={10}>
-                  <Control.text
+                  <Control.Text
                     model=".telnum"
                     id="telnum"
                     className="form-control"
@@ -193,7 +202,7 @@ class Contact extends Component {
                   Email
                 </Label>
                 <Col md={10}>
-                  <Control.text
+                  <Control.Text
                     model=".email"
                     className="form-control"
                     id="email"
@@ -219,7 +228,7 @@ class Contact extends Component {
                 <Col md={{ size: 6, offset: 2 }}>
                   <div className="form-check">
                     <Label check>
-                      <Control.checkbox
+                      <Control.Checkbox
                         model=".agree"
                         className="form-check-input"
                         name="agree"
@@ -229,10 +238,10 @@ class Contact extends Component {
                   </div>
                 </Col>
                 <Col md={{ size: 3, offset: 1 }}>
-                  <Control.select model=".contactType" name="contactType">
+                  <Control.Select model=".contactType" name="contactType">
                     <option>Tel.</option>
                     <option>Email</option>
-                  </Control.select>
+                  </Control.Select>
                 </Col>
               </Row>
               <Row className="form-group">
@@ -240,7 +249,7 @@ class Contact extends Component {
                   Your Feedback
                 </Label>
                 <Col md={10}>
-                  <Control.textarea
+                  <Control.Textarea
                     model=".message"
                     id="message"
                     name="message"

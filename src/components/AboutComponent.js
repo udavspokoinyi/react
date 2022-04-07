@@ -8,6 +8,7 @@ import {
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import RenderLeaders from "./RenderLeader";
+
 function About(props) {
   return (
     <div className="container">
@@ -84,7 +85,9 @@ function About(props) {
         <div className="col-12">
           <h2>Corporate Leadership</h2>
         </div>
+
         <RenderLeaders leaders={props.leaders} />
+
         <div className="col-12"></div>
       </div>
     </div>
